@@ -8,7 +8,7 @@
    <link href="/libs/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
    <link href="/libs/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
    <link href="/libs/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+   <link href="/libs/gentelella/css/custom.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -39,7 +39,7 @@
 
 
 <!-- <div id="loading" style="background-color:#e6f9ff;"> Loading </div> -->
-<a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
+                 <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
                 
                   <!-- <div id='loading' style="background-color:#e6f9ff;"> Loading </div> -->
                   <div class="x_content">                     
@@ -106,9 +106,7 @@ $(document).ready(function(){
         $('#start').val(today);
         $('#end').val(today);
       })
-      $('#datatable-fixed-header').DataTable({
-                fixedHeader: true
-              });
+      
       $(function() {
           $.ajaxSetup({
               headers: {
@@ -120,42 +118,35 @@ $(document).ready(function(){
         
         processing: true,
         serverSide: true,
-        searching: false,
         ajax: {
               url: '/agent',
-              error: function(xhr, error){
-                  if (xhr.status === 401) {
-                    window.location.href = '/login';
-                  }
-                  // else{
-                  //   alert(error);
-                  // }
-                },
-           
               data: function (d) {
                     d.start_date = $('#start').val();
                     d.end_date = $('#end').val();
                 },
-              //   success: function(data) {
-              //    $("#loading").hide();
-              // },
-              // beforeSend: function() {
-              //    $("#loading").show();
-              // },
+              error: function(xhr, error){
+                  if (xhr.status === 401) {
+                    window.location.href = '/login';
+                  }
+                
+                },
+           
+              
+            
               
           },
-        deferRender: true,
-        responsive: true,
+     
         columns: [
-            {data: 'transaction_date', name: 'transaction_date'},
-            {data: 'description', name: 'description'},
-            {data: 'mobile_no', name: 'mobile_no'},
-            {data: 'pre_balance', name: 'pre_balance'},
-            {data: 'post_balance', name: 'post_balance'},
-            {data: 'sale_amount', name: 'sale_amount'},
-            {data: 'commission', name: 'commission'},
-            {data: 'status', name: 'status'},
+            {data: 'transaction_date', name: 'transactionlog.transactionlog_datetime'},
+            {data: 'description', name: 'activities.activities'},
+            {data: 'mobile_no', name: 'topup.phone_no'},
+            {data: 'pre_balance', name: 'transactionlog.pre_agent_card_balance'},
+            {data: 'post_balance', name: 'transactionlog.agent_card_balance'},
+            {data: 'sale_amount', name: 'transactionlog.amount'},
+            {data: 'commission', name: 'agent_commission.commission'},
+            {data: 'status', name: 'transactionlog.transaction_status'},
         ]
+
          
     });
 

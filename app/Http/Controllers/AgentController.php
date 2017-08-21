@@ -22,7 +22,6 @@ class AgentController extends Controller
     {
     	$user = Session('user');
     	
-
     	if ($request->ajax()) {
 
 			$agents = DB::table('transactionlog')
@@ -56,12 +55,7 @@ class AgentController extends Controller
 	                }
 
 	          	})
-			       // ->editColumn('PreBalance', function ($agents) {
-          //               return number_format($agents->PreBalance) . ' MMK ';
-          //           })
-          //           ->editColumn('PostBalance', function ($agents) {
-          //               return number_format($agents->PostBalance) . ' MMK ';
-          //           })
+			       
     		->make(true);
 
         }
@@ -75,8 +69,7 @@ class AgentController extends Controller
     public function exportExcel(Request $request)
 	{
 			$user =  Session('user');
-			// ini_set('max_execution_time', 0);
-			// ini_set("memory_limit",-1);
+			
 			$data = Agent::leftjoin('agentcard','transactionlog.agent_card_ref','=','agentcard.agentcard_ref')
 						->leftjoin('topup','transactionlog.transactionlog_id','=','topup.transactionlog_id')
 						->leftjoin('agent_commission','transactionlog.transactionlog_id','=','agent_commission.transactionlog_id')

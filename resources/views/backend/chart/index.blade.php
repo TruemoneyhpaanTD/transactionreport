@@ -8,120 +8,117 @@
    <link href="/libs/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
    <link href="/libs/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
    <link href="/libs/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-   <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-          width: 350px;
-          height: 250px;
-      }
-        /*#aa{
-          background-color: blue;
-          margin-left: 30px;
-        }*/
-
-    </style>
+   <link href="/libs/gentelella/css/custom.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
-<!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
-            <div class="row">
-                <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2> MEC Taken </h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <div id="graph_bar" style="width:100%; height:200px;"></div>
-                      <div class="col-xs-12 bg-white progress_summary">
-                      </div>
-                    </div>
+        <!-- page content -->
+       <div class="right_col" role="main">
+      <div class="">
+         <div class="page-title">
+              <div class="title_left">
+                
+              </div>
+         </div>
+         <div class="row">
+            
+            <div class="col-md-12 col-sm-12 col-xs-12">
+               <div class="x_panel">
+                  
+
+                  <div class="x_content">                     
+                      
+                         <table class="table table-striped table-bordered " cellspacing="0" width="100%" id="users-table">
+                             <thead>
+                                 <tr>
+                                     <th style="width:20%">TransactionDate</th> 
+                                     <th>Description</th> 
+                                     <th>Mobile Number</th> 
+                                     <th style="width:20%">Pre Balance</th>
+                                     <th>Post Balance</th>
+                                     <th>Amount</th>
+                                     <th>Commission</th>
+                                     <th>Status</th>
+                                 </tr>
+                             </thead>
+                         </table>
+                     
+                     <!-- /.table-responsive -->
                   </div>
                 </div>
+            </div>
 
-                <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2> Ooredoo Taken </h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <div id="graph_bar_ooredoo" style="width:100%; height:200px;"></div>
-                      <div class="col-xs-12 bg-white progress_summary">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                 <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2> E-Pin Taken </h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <div id="graph_bar_epin" style="width:100%; height:200px;"></div>
-                      <div class="col-xs-12 bg-white progress_summary">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-            </div>     
-          </div>
-        </div>
+         </div>
+      </div>  
+   </div>
           
         
         <!-- /page content -->
 @endsection
 
 @section('js')
-  <script src="/libs/raphael/raphael.min.js"></script>
-<script src="/libs/morris.js/morris.min.js"></script>
+ <script src="/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<!-- Datatables -->
+    <script src="/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/libs/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/libs/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/libs/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/libs/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/libs/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+
 <script>
-  $(document).ready(function(){
 
-    Morris.Bar({
-      element: 'graph_bar',
-      data: [
-        { "period": "10000", "MEC": {{ $mec_10000 }} }, 
-        { "period": "5000", "MEC": {{ $mec_5000 }} }, 
-        { "period": "3000", "MEC": {{ $mec_3000 }} }, 
-        { "period": "1000", "MEC": {{ $mec_1000 }} }, 
-      ],
-      xkey: 'period',
-      hideHover: 'auto',
-      barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-      ykeys: ['MEC'],
-      labels: ['MEC'],
-      barRatio: 0.4,
-      xLabelAngle: 35,
-      resize: true
+      
+      $(function() {
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+
+    var oTable = $('#users-table').DataTable({
+        
+        processing: true,
+        serverSide: true,
+        ajax: {
+              url: '/chart',
+              data: function (d) {
+                   
+                },
+              error: function(xhr, error){
+                  if (xhr.status === 401) {
+                    window.location.href = '/login';
+                  }
+                 
+                },            
+          },
+        
+        columns: [
+            {data: 'transaction_date', name: 'transaction_date'},
+            {data: 'description', name: 'description'},
+            {data: 'mobile_no', name: 'mobile_no'},
+            {data: 'pre_balance', name: 'pre_balance'},
+            {data: 'post_balance', name: 'post_balance'},
+            {data: 'sale_amount', name: 'sale_amount'},
+            {data: 'commission', name: 'commission'},
+            {data: 'status', name: 'status'},
+        ]
+
+         
     });
 
-    Morris.Bar({
-      element: 'graph_bar_ooredoo',
-      data: [
-        { "period": "20000", "Ooredoo": {{ $ooredoo_20000 }} }, 
-        { "period": "10000", "Ooredoo": {{ $ooredoo_10000 }} }, 
-        { "period": "5000", "Ooredoo": {{ $ooredoo_5000 }} }, 
-        { "period": "3000", "Ooredoo": {{ $ooredoo_3000 }} }, 
-        { "period": "1000", "Ooredoo": {{ $ooredoo_1000 }} }, 
-      ],
-      xkey: 'period',
-      hideHover: 'auto',
-      barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-      ykeys: ['Ooredoo'],
-      labels: ['Ooredoo'],
-      barRatio: 0.4,
-      xLabelAngle: 35,
-      resize: true
+    $('#submit').on('click', function() {
+        oTable.draw();
     });
-    
-  })
 
-</script>
+   
+});
+</script> 
+
 @endsection

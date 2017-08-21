@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,7 +29,7 @@
        position:absolute;
        bottom:0;
        width:100%;
-       height:7%;   /* Height of the footer */
+       height:10%;   /* Height of the footer */
        background:#6cf;
        background-color:#FF6600;
        /*border:2px solid orange;*/
@@ -114,7 +113,10 @@
         
       </div>
     </div>
-      <footer  id ="footer">2017 @ TrueMoney Myanmar Co., Ltd</footer>
+    
+      <footer  id ="footer" >2017 @ TrueMoney Myanmar Co., Ltd  <div style="text-align: center;"><span > <table width=125 border=0 cellspacing=0 cellpadding=0 title="CLICK TO VERIFY: This site uses a GlobalSign SSL Certificate to secure your personal information." ><tr><td><span id="ss_img_wrapper_gmogs_image_110-45_en_blue"><a href="https://www.globalsign.com/" target=_blank title="GlobalSign Site Seal" rel="nofollow"><img alt="SSL" border=0 id="ss_img" src="//seal.globalsign.com/SiteSeal/images/gs_noscript_110-45_en.gif"></a></span><script type="text/javascript" src="//seal.globalsign.com/SiteSeal/gmogs_image_110-45_en_blue.js"></script></td></tr></table> </span> </div>
+        
+      </footer>
     </body>
 
 
