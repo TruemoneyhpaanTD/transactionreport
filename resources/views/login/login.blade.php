@@ -62,7 +62,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+            <form class="form-horizontal" role="form" method="POST" action="/login">
               <h1>Login Form</h1>
               {{ csrf_field() }}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
