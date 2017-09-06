@@ -25,10 +25,17 @@ Route::post('logout', 'LoginController@logout');
 
 // Show all agents
 Route::get('/agent','AgentController@index');
+Route::get('/transaction', 'AgentController@transaction');
 
-Route::get('/agent/{export_excel}','AgentController@exportExcel');
+// Route::get('/dashboard', 'TestController@index');
+// Route::get('/transaction', 'TestController@transaction');
+
+// Route::get('/agent/{export_excel}','AgentController@exportExcel');
+// Route::get('/dashboard/{export_excel}','TestController@exportExcel');
 
 
+// Route::get('/dashboard', 'HomeController@index');
+// Route::get('/transaction', 'HomeController@transaction');
 // Show Profile
 Route::get('profile','ProfileController@getprofile');
 

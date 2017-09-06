@@ -39,25 +39,25 @@
 
 
 <!-- <div id="loading" style="background-color:#e6f9ff;"> Loading </div> -->
-                 <!-- <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>   -->
+                 <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
                 
                   <!-- <div id='loading' style="background-color:#e6f9ff;"> Loading </div> -->
                   <div class="x_content">                     
                       
-                          <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="transaction-table">
-                            <thead>
-                                <tr>
+                         <table class="table table-striped table-bordered " cellspacing="0" width="100%" id="users-table">
+                             <thead>
+                                 <tr>
                                      <th style="width:20%">TransactionDate</th> 
                                      <th>Description</th> 
                                      <th>Mobile Number</th> 
                                      <th style="width:20%">Pre Balance</th>
                                      <th>Post Balance</th>
-                                     <!-- <th>Amount</th> -->
+                                     <th>Amount</th>
                                      <th>Commission</th>
-                                     <!-- <th>Status</th> -->
+                                     <th>Status</th>
                                  </tr>
-                            </thead>
-                          </table>
+                             </thead>
+                         </table>
                      
                      <!-- /.table-responsive -->
                   </div>
@@ -106,53 +106,59 @@ $(document).ready(function(){
         $('#start').val(today);
         $('#end').val(today);
       })
-$(function() {
-  $.ajaxSetup({
-       headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       }
-   });
+      
+      $(function() {
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
 
-  
- var table = $('#transaction-table').DataTable({
-        dom: "<'row'<'col-xs-12'<'col-xs-6'l><'col-xs-6'p>>r>"+
-            "<'row'<'col-xs-12't>>"+
-            "<'row'<'col-xs-12'<'col-xs-6'i><'col-xs-6'p>>>",
+    var oTable = $('#users-table').DataTable({
+        
         processing: true,
         serverSide: true,
-        deferRender: true,
         ajax: {
-            url: '/transaction',
-            error: function(xhr, error){
-                if (xhr.status === 401) {
-                   window.location.href = '/login';
-                }
-            },
-            data: function (d) {
-                  d.start_date = $('#start').val();
-                  d.end_date = $('#end').val();
-            },
-        },
-       columns: [
-            {data: 'transaction_date', name: 'transaction_date'},
-            {data: 'description', name: 'description'},
-            {data: 'mobile_no', name: 'mobile_no'},
-            {data: 'pre_balance', name: 'pre_balance'},
-            {data: 'post_balance', name: 'post_balance'},
-            {data: 'commission', name: 'commission'},
+              url: '/agent',
+              data: function (d) {
+                    d.start_date = $('#start').val();
+                    d.end_date = $('#end').val();
+                },
+              error: function(xhr, error){
+                  if (xhr.status === 401) {
+                    window.location.href = '/login';
+                  }
+                
+                },
            
+              
+            
+              
+          },
+     
+        columns: [
+            {data: 'transaction_date', name: 'transactionlog.transactionlog_datetime'},
+            {data: 'description', name: 'activities.activities'},
+            {data: 'mobile_no', name: 'topup.phone_no'},
+            {data: 'pre_balance', name: 'transactionlog.pre_agent_card_balance'},
+            {data: 'post_balance', name: 'transactionlog.agent_card_balance'},
+            {data: 'sale_amount', name: 'transactionlog.amount'},
+            {data: 'commission', name: 'agent_commission.commission'},
+            {data: 'status', name: 'transactionlog.transaction_status'},
         ]
+
          
     });
-   $('#submit').on('click', function() {
-        table.draw();
+
+    $('#submit').on('click', function() {
+        oTable.draw();
     });
-    //  $('#export_excel').on('click',function(){
-    //     var start = $('#start').val();
-    //     var end = $('#end').val();
-    //     $(this).attr('href','/dashboard/export_excel?start_date='+ start +'&end_date='+ end +'')
-    // });
-  
+
+    $('#export_excel').on('click',function(){
+        var start = $('#start').val();
+        var end = $('#end').val();
+        $(this).attr('href','/agent/export_excel?start_date='+ start +'&end_date='+ end +'')
+    });
 });
 </script>
 @endsection

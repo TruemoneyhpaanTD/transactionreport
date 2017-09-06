@@ -8,11 +8,21 @@
                <li><a href="/dashboard">Dashboard</a></li>
             </ul>
          </li> -->
+         <!-- <li><a><i class="fa fa-edit"></i> Merchant <span class="fa fa-chevron-down"></span></a>
+         
+            <ul class="nav child_menu">
+               <li><a href="/agent">Transaction Report</a></li>
+            </ul>
+            
+         </li> -->
          <li><a><i class="fa fa-edit"></i> Merchant <span class="fa fa-chevron-down"></span></a>
          
             <ul class="nav child_menu">
                <li><a href="/agent">Transaction Report</a></li>
             </ul>
+            <!-- <ul class="nav child_menu">
+               <li><a href="/dashboard">Test Report</a></li>
+            </ul> -->
          </li>
 
          <!-- <li><a><i class="fa fa-sitemap"></i> Charts <span class="fa fa-chevron-down"></span></a>

@@ -114,8 +114,11 @@
       </div>
     </div>
     
-      <footer  id ="footer" >2017 @ TrueMoney Myanmar Co., Ltd  <div style="text-align: center;"><span > <table width=125 border=0 cellspacing=0 cellpadding=0 title="CLICK TO VERIFY: This site uses a GlobalSign SSL Certificate to secure your personal information." ><tr><td><span id="ss_img_wrapper_gmogs_image_110-45_en_blue"><a href="https://www.globalsign.com/" target=_blank title="GlobalSign Site Seal" rel="nofollow"><img alt="SSL" border=0 id="ss_img" src="//seal.globalsign.com/SiteSeal/images/gs_noscript_110-45_en.gif"></a></span><script type="text/javascript" src="//seal.globalsign.com/SiteSeal/gmogs_image_110-45_en_blue.js"></script></td></tr></table> </span> </div>
+      <footer id="footer"> 
+      <div class="col-md-6 col-lg-6">2017 @ TrueMoney Myanmar Co., Ltd </div> 
+      <div class="col-md-6 col-lg-6"> <table title="CLICK TO VERIFY: This site uses a GlobalSign SSL Certificate to secure your personal information." width="125" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td><script src="//ssif1.globalsign.com/SiteSeal/siteSeal/siteSeal/siteSeal.do?p1=marchent.truemoney.com.mm&amp;p2=SZ110-45&amp;p3=image&amp;p4=en&amp;p5=V0022&amp;p6=S001&amp;p7=https"></script><span> <a id="aa" href="javascript:ss_open_sub()"><img name="ss_imgTag" src="//ssif1.globalsign.com/SiteSeal/siteSeal/siteSeal/siteSealImage.do?p1=marchent.truemoney.com.mm&amp;p2=SZ110-45&amp;p3=image&amp;p4=en&amp;p5=V0022&amp;p6=S001&amp;p7=https&amp;deterDn=" alt="Please click to see profile." oncontextmenu="return false;" galleryimg="no" border="0"></a></span><span id="ss_siteSeal_fin_SZ110-45_image_en_V0022_S001"></span><script type="text/javascript" src="//seal.globalsign.com/SiteSeal/gmogs_image_110-45_en_blue.js"></script></td></tr></tbody></table>  <div>
         
+      </div></div>
       </footer>
     </body>
 

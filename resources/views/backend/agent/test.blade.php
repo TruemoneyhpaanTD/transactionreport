@@ -8,23 +8,25 @@
    <link href="/libs/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
    <link href="/libs/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
    <link href="/libs/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-   <link href="/libs/gentelella/css/custom.min.css" rel="stylesheet">
+   
 @endsection
 
 @section('content')
 <!-- page content -->
-   <div class="right_col" role="main">
-      <div class="">
-         <div class="page-title">
-              <div class="title_left">
-                
-              </div>
-         </div>
-         <div class="row">
-            
-            <div class="col-md-12 col-sm-12 col-xs-12">
-               <div class="x_panel">
-                  <div class="x_title">
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="row top_tiles">
+                      
+                  
+              
+
+
+          <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                 <div class="x_title">
                   <label class="col-md-2 control-label">Date Range</label>
                         <div class="col-md-8">
                            <div class="input-group input-daterange">
@@ -36,15 +38,11 @@
                         <button id="submit" class="col-md-1 btn btn-success">Submit</button>
                     <div class="clearfix"></div>
                   </div>
+                  <a href="/dashboard/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
+                  <div class="x_content">
+                   
 
-
-<!-- <div id="loading" style="background-color:#e6f9ff;"> Loading </div> -->
-                 <!-- <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>   -->
-                
-                  <!-- <div id='loading' style="background-color:#e6f9ff;"> Loading </div> -->
-                  <div class="x_content">                     
-                      
-                          <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="transaction-table">
+                         <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="transaction-table">
                             <thead>
                                 <tr>
                                      <th style="width:20%">TransactionDate</th> 
@@ -58,16 +56,22 @@
                                  </tr>
                             </thead>
                           </table>
-                     
-                     <!-- /.table-responsive -->
+
+                    
                   </div>
                 </div>
+              </div>
             </div>
 
-         </div>
-      </div>  
-   </div>
-   <!-- /page content -->
+          </div>
+        </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- /top tiles -->
+
+      </div>
+        <!-- /page content -->
 @endsection
 
 @section('js')
@@ -147,12 +151,14 @@ $(function() {
    $('#submit').on('click', function() {
         table.draw();
     });
-    //  $('#export_excel').on('click',function(){
-    //     var start = $('#start').val();
-    //     var end = $('#end').val();
-    //     $(this).attr('href','/dashboard/export_excel?start_date='+ start +'&end_date='+ end +'')
-    // });
+     $('#export_excel').on('click',function(){
+        var start = $('#start').val();
+        var end = $('#end').val();
+        $(this).attr('href','/dashboard/export_excel?start_date='+ start +'&end_date='+ end +'')
+    });
   
 });
 </script>
 @endsection
+
+
