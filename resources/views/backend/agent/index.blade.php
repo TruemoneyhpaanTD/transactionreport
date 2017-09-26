@@ -39,7 +39,7 @@
 
 
 <!-- <div id="loading" style="background-color:#e6f9ff;"> Loading </div> -->
-                 <!-- <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>   -->
+                 <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
                 
                   <!-- <div id='loading' style="background-color:#e6f9ff;"> Loading </div> -->
                   <div class="x_content">                     
@@ -131,6 +131,7 @@ $(function() {
             data: function (d) {
                   d.start_date = $('#start').val();
                   d.end_date = $('#end').val();
+                  // d.search_result = $('.dataTables_filter input').val();
             },
         },
        columns: [
@@ -147,11 +148,12 @@ $(function() {
    $('#submit').on('click', function() {
         table.draw();
     });
-    //  $('#export_excel').on('click',function(){
-    //     var start = $('#start').val();
-    //     var end = $('#end').val();
-    //     $(this).attr('href','/dashboard/export_excel?start_date='+ start +'&end_date='+ end +'')
-    // });
+     $('#export_excel').on('click',function(){
+        var start = $('#start').val();
+        var end = $('#end').val();
+        // var search_result = $('.dataTables_filter input').val();
+        $(this).attr('href','/transaction/export_excel?start='+ start +'&end='+ end  + '')
+    });
   
 });
 </script>

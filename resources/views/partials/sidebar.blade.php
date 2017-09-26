@@ -20,15 +20,21 @@
             <ul class="nav child_menu">
                <li><a href="/agent">Transaction Report</a></li>
             </ul>
+
+           
+
+             <!-- <ul class="nav child_menu">
+               <li><a href="/lugyimin.dev">LuGyiMin Transaction</a></li>
+            </ul> -->
             <!-- <ul class="nav child_menu">
                <li><a href="/dashboard">Test Report</a></li>
             </ul> -->
          </li>
 
-         <!-- <li><a><i class="fa fa-sitemap"></i> Charts <span class="fa fa-chevron-down"></span></a>
+         <!-- <li><a><i class="fa fa-sitemap"></i> Transaction <span class="fa fa-chevron-down"></span></a>
          
             <ul class="nav child_menu">
-               <li><a href="/chart">Chart List</a></li>
+               <li><a target="_blank" href="http://lugyimin.dev/login">LuGyiMin</a></li>
             </ul>
 
          </li> -->

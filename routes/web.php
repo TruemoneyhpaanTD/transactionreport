@@ -14,7 +14,9 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return redirect('login');
 });
-
+Route::get('/lugyimin', function () {
+   return redirect('http://lugyimin.dev/login');
+});
 Route::get('login','LoginController@showLogin');
 Route::post('login','LoginController@authenticate');
 Route::post('logout', 'LoginController@logout');
@@ -26,16 +28,9 @@ Route::post('logout', 'LoginController@logout');
 // Show all agents
 Route::get('/agent','AgentController@index');
 Route::get('/transaction', 'AgentController@transaction');
-
-// Route::get('/dashboard', 'TestController@index');
-// Route::get('/transaction', 'TestController@transaction');
-
-// Route::get('/agent/{export_excel}','AgentController@exportExcel');
-// Route::get('/dashboard/{export_excel}','TestController@exportExcel');
+Route::get('/transaction/{export_excel}','AgentController@exportExcel');
 
 
-// Route::get('/dashboard', 'HomeController@index');
-// Route::get('/transaction', 'HomeController@transaction');
 // Show Profile
 Route::get('profile','ProfileController@getprofile');
 
