@@ -39,7 +39,7 @@
 
 
 <!-- <div id="loading" style="background-color:#e6f9ff;"> Loading </div> -->
-                 <a href="/agent/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
+                 <a href="/transaction/export_excel" id="export_excel" class="btn btn-info" role="button">Export Excel</a>  
                 
                   <!-- <div id='loading' style="background-color:#e6f9ff;"> Loading </div> -->
                   <div class="x_content">                     
@@ -151,8 +151,9 @@ $(function() {
      $('#export_excel').on('click',function(){
         var start = $('#start').val();
         var end = $('#end').val();
-        // var search_result = $('.dataTables_filter input').val();
-        $(this).attr('href','/transaction/export_excel?start='+ start +'&end='+ end  + '')
+       
+        $(this).attr('href','/transaction/export_excel?start='+ start +'&end='+ end  + '');
+       
     });
   
 });

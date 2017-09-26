@@ -95,54 +95,7 @@ class AgentController extends Controller
     		$member_transaction = $member_transaction->union($result)->union($transactionlog);
 
 
-  //           $temptable = DB::raw("(SELECT user_id, count(*) AS num_orders 
-		// FROM orders GROUP BY user_id) as orders");
-            // $temptable  = DB::raw("(select * from agent_commission left join transactionlog 
-				        //     	on agent_commission.transactionlog_id=transactionlog.transactionlog_id 
-				        //     	where transactionlog.transaction_status='SUCCESSFUL') as acom");
-            
-            // $transactionlogTable = DB::table('transactionlog')	
-            // 						->leftjoin($temptable,'acom.transactionlog_id','=','transactionlog.transactionlog_id')		
-            						// ->join('agentcard',function($join){
-            						// 	$join->on('agentcard.agentcard_ref','=','transactionlog.master_agent_card_ref');
-            								 
-            						// })
-            						// ->where('agentcard.factory_cardno',$user->factory_cardno);
-            						// ->whereDate('transactionlog.transactionlog_datetime','>=',"{$request->get('start_date')}");
-            						// ->whereDate('transactionlog.transactionlog_datetime','<=',"{$request->get('end_date')}");
-            						// ->select([
-            						// 	"transactionlog.transactionlog_datetime as transaction_date",
-            						// 	"transactionlog.activities_ref as description",
-            						// 	"transactionlog.mobile as mobile_no",
-            						// 	DB::raw('(case when transactionlog.pre_master_agent_card_balance is null then 0 else transactionlog.pre_master_agent_card_balance end) As pre_balance'),
-            						// 	DB::raw('(case when transactionlog.master_agent_card_balance is null then 0 else transactionlog.master_agent_card_balance end) AS post_balance'),
-            						// 	DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end,case when acom.commission is null then 0 else acom.commission end ) AS commission'),
-            						// 	]);
-          
-          
-                                  
-               
-
-            // $result = DB::table('transactionlog')
-            // 			->join(DB::raw("(select * from agent_commission left join transactionlog on agent_commission.transactionlog_id=transactionlog.transactionlog_id
-            // 				where transactionlog.transaction_status='SUCCESSFUL') as acom"),function($join){
-            // 				$join->on('acom.transactionlog_id','=','transactionlog.transactionlog_id')
-            // 			->join('agentcard',function($join){
-            // 							$join->on('agentcard.agentcard_ref','=','transactionlog.master_agent_card_ref');
-            								 
-            // 						})
-            // 						->where('agentcard.factory_cardno',$user->factory_cardno);
-            // 						->whereDate('transactionlog.transactionlog_datetime','>=',"{$request->get('start_date')}");
-            // 						->whereDate('transactionlog.transactionlog_datetime','<=',"{$request->get('end_date')}");
-            // 						->select([
-            // 							"transactionlog.transactionlog_datetime as transaction_date",
-            // 							"transactionlog.activities_ref as description",
-            // 							"transactionlog.mobile as mobile_no",
-            // 							DB::raw('(case when transactionlog.pre_master_agent_card_balance is null then 0 else transactionlog.pre_master_agent_card_balance end) As pre_balance'),
-            // 							DB::raw('(case when transactionlog.master_agent_card_balance is null then 0 else transactionlog.master_agent_card_balance end) AS post_balance'),
-            // 							DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end,case when acom.commission is null then 0 else acom.commission end ) AS commission'),
-            // 							]);
-
+ 
            
             
 
@@ -154,11 +107,13 @@ class AgentController extends Controller
         public function exportExcel(Request $request)
 
         {
+
+            
             $user = Session('user');
-            // $transactionlog = DB::table('transactionlog')
+            
             $transactionlog = Agent::leftjoin('transactionlog','transactionlog.agent_card_ref','=','agentcard.agentcard_ref')
                       ->leftjoin('agent_commission','agent_commission.transactionlog_id','=','transactionlog.transactionlog_id')
-                      ->leftjoin('agentcard','agentcard.agentcard_ref','=','transactionlog.agent_card_ref')
+                     
                       ->where('agentcard.factory_cardno',$user->factory_cardno)
                       ->select(
                   
@@ -171,22 +126,40 @@ class AgentController extends Controller
                   
 
               );
-           
-            $transactionlog->whereDate('transactionlog.transactionlog_datetime', '>=', "{$request->get('start_date')}");
-            $transactionlog->whereDate('transactionlog.transactionlog_datetime', '<=', "{$request->get('end_date')}");
 
-            // $result = DB::table('transactionlog')
-            $result = Agent::leftjoin('transactionlog','transactionlog.agent_card_ref','=','agentcard',function($join){
-                                        $join->on('agentcard.agentcard_ref','=','transactionlog.master_agent_card_ref');
-                                             
-                                    })
-                        ->join(DB::raw("(select agent_commission.transactionlog_id,agent_commission.commission,agent_commission.agent_commission_id,agent_commission.date,agent_commission.remark,agent_commission.activities_ref,agent_commission.agentcard_ref,agent_commission.member_transactionlog_id from agent_commission left join transactionlog on agent_commission.transactionlog_id=transactionlog.transactionlog_id
+            $transactionlog->whereDate('transactionlog.transactionlog_datetime', '>=', "{$request->get('start')}");
+            $transactionlog->whereDate('transactionlog.transactionlog_datetime', '<=', "{$request->get('end')}");
+           
+             // $result = DB::table('transactionlog')
+             //            ->join(DB::raw("(select agent_commission.transactionlog_id,agent_commission.commission,agent_commission.agent_commission_id,agent_commission.date,agent_commission.remark,agent_commission.activities_ref,agent_commission.agentcard_ref,agent_commission.member_transactionlog_id from agent_commission left join transactionlog on agent_commission.transactionlog_id=transactionlog.transactionlog_id
+             //                where transactionlog.transaction_status='SUCCESSFUL') as acom"),function($join){
+             //                $join->on('acom.transactionlog_id','=','transactionlog.transactionlog_id');})
+             //            ->join('agentcard',function($join){
+             //                $join->on('agentcard.agentcard_ref','=','transactionlog.master_agent_card_ref');                     
+             //            })
+             //            ->where('agentcard.factory_cardno',$user->factory_cardno)
+             //            ->select([
+             //                            "transactionlog.transactionlog_datetime as transaction_date",
+             //                            "transactionlog.activities_ref as description",
+             //                            "transactionlog.mobile as mobile_no",
+             //                            DB::raw('(case when transactionlog.pre_master_agent_card_balance is null then 0 else transactionlog.pre_master_agent_card_balance end) As pre_balance'),
+             //                            DB::raw('(case when transactionlog.master_agent_card_balance is null then 0 else transactionlog.master_agent_card_balance end) AS post_balance'),
+             //                            DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end,case when acom.commission is null then 0 else acom.commission end ) AS commission'),
+             //                            ]);
+
+             //        $result->whereDate('transactionlog.transactionlog_datetime','>=',"{$request->get('start_date')}");
+             //        $result->whereDate('transactionlog.transactionlog_datetime','<=',"{$request->get('end_date')}");
+
+
+
+
+            $result = Agent::join('transactionlog','agentcard.agentcard_ref','=','transactionlog.master_agent_card_ref')
+                         ->join(DB::raw("(select agent_commission.transactionlog_id,agent_commission.commission,agent_commission.agent_commission_id,agent_commission.date,agent_commission.remark,agent_commission.activities_ref,agent_commission.agentcard_ref,agent_commission.member_transactionlog_id from agent_commission left join transactionlog on agent_commission.transactionlog_id=transactionlog.transactionlog_id
                             where transactionlog.transaction_status='SUCCESSFUL') as acom"),function($join){
-                            $join->on('acom.transactionlog_id','=','transactionlog.transactionlog_id');})
-                        // ->join('agentcard',function($join){
-                        //                 $join->on('agentcard.agentcard_ref','=','transactionlog.master_agent_card_ref');
-                                             
-                        //             })
+                            $join->on('acom.transactionlog_id','=','transactionlog.transactionlog_id');})                    
+                                   
+                        ->whereDate('transactionlog.transactionlog_datetime','>=',"{$request->get('start')}")
+                        ->whereDate('transactionlog.transactionlog_datetime','<=',"{$request->get('end')}")
                         ->where('agentcard.factory_cardno',$user->factory_cardno)
                         ->select([
                                         "transactionlog.transactionlog_datetime as transaction_date",
@@ -197,14 +170,13 @@ class AgentController extends Controller
                                         DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end,case when acom.commission is null then 0 else acom.commission end ) AS commission'),
                                         ]);
 
-                        $result->whereDate('transactionlog.transactionlog_datetime','>=',"{$request->get('start_date')}");
-                        $result->whereDate('transactionlog.transactionlog_datetime','<=',"{$request->get('end_date')}");
+                        
         
         
-        // $member_transaction = DB::table('member_transactionlog')
+      
         $member_transaction = Agent::leftjoin('member_transactionlog','member_transactionlog.agent_card_ref','=','agentcard.agentcard_ref')
                 ->leftjoin('agent_commission','agent_commission.member_transactionlog_id','=','member_transactionlog.member_transactionlog_id')
-                // ->leftjoin('agentcard','agentcard.agentcard_ref','=','member_transactionlog.agent_card_ref')
+                
                 ->where('agentcard.factory_cardno',$user->factory_cardno)
                 ->select([
                       "member_transactionlog.transactionlog_datetime as transaction_date",
@@ -214,12 +186,13 @@ class AgentController extends Controller
                       DB::raw('(case when member_transactionlog.post_agent_card_balance is null then 0 else member_transactionlog.post_agent_card_balance end) AS post_balance'),
                       DB::raw('(case when member_transactionlog.amount is null then 0 else member_transactionlog.amount end,case when agent_commission.commission is null then 0 else agent_commission.commission end) AS commission')
                   ]);
-            $member_transaction->whereDate('member_transactionlog.transactionlog_datetime', '>=', "{$request->get('start_date')}");
-            $member_transaction->whereDate('member_transactionlog.transactionlog_datetime', '<=', "{$request->get('end_date')}");
-
-            $member_transaction = $member_transaction->union($result)->union($transactionlog);
-            // dd($member_transaction);
-            $member_transaction = $member_transaction->get()->toArray();
+            
+            $member_transaction->whereDate('member_transactionlog.transactionlog_datetime', '>=', "{$request->get('start')}");
+            $member_transaction->whereDate('member_transactionlog.transactionlog_datetime', '<=', "{$request->get('end')}");
+            
+            $member_transaction = $member_transaction->union($transactionlog)->union($result);
+            
+            $member_transaction = $member_transaction->union($result)->union($transactionlog)->get()->toArray();
 
                 
             Excel::create('Merchant Transaction Report', function($excel) use($member_transaction) {
@@ -231,47 +204,6 @@ class AgentController extends Controller
             })->export('xls');
 
         }
- //    public function exportExcel(Request $request)
-	// {
-	// 		$user =  Session('user');
-			
-	// 		$data = Agent::leftjoin('agentcard','transactionlog.agent_card_ref','=','agentcard.agentcard_ref')
-	// 					->leftjoin('topup','transactionlog.transactionlog_id','=','topup.transactionlog_id')
-	// 					->leftjoin('agent_commission','transactionlog.transactionlog_id','=','agent_commission.transactionlog_id')
-	// 					->leftjoin('cnp_payment','transactionlog.transactionlog_id','=','cnp_payment.transactionlog_id')
-	// 					->leftjoin('terminal','transactionlog.terminal_ref','=','terminal.terminal_ref')
-	// 					->leftjoin('agent','agentcard.agent_id','=','agent.agent_id')
-	// 					->leftjoin('activities','transactionlog.activities_ref','=','activities.activities_ref')
-	// 					->join('users','users.users_id','=','agent.user_id')
-	// 					->orderBy('transactionlog.transactionlog_datetime', 'desc')
-	// 					->where("agentcard.factory_cardno", $user->factory_cardno)
-	// 					->select([
-	// 						"transactionlog.transactionlog_datetime as transaction_date",
-	// 						"activities.activities as description",
-	// 						"topup.phone_no as mobile_no",
-	// 						DB::raw("to_char(transactionlog.pre_agent_card_balance,'99,999,999,999,999,990') as pre_balance"),
-	// 						DB::raw("to_char(transactionlog.agent_card_balance,'99,999,999,999,999,990') as post_balance"),
-	// 						DB::raw("to_char(transactionlog.amount,'99,999,999,999,999,990') as sale_amount"),
-	// 						DB::raw("CONCAT('(',(agent_commission.commission),')') as commission"),
-	// 						"transactionlog.transaction_status as status"
-	// 						]);
-
-	// 	    if ($request->has('start_date')) {
-	// 	        $data->whereDate('transactionlog.transactionlog_datetime', '>=', "{$request->input('start_date')}");
-	// 	    }
-	// 	    if ($request->has('end_date')) {
-	// 	        $data->whereDate('transactionlog.transactionlog_datetime','<=', "{$request->input('end_date')}");
-	// 	    }
-
-	// 	    $data = $data->get()->toArray();
-				
-	// 		Excel::create('Merchant Transaction Report', function($excel) use($data) {
-
-	// 		   $excel->sheet('Sheetname', function($sheet) use($data) {
-	// 		       $sheet->fromModel($data);
-	// 		   });
-
-	// 		})->export('xls');
-	// }
+ 
 
 }

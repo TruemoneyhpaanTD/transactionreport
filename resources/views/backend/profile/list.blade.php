@@ -249,9 +249,7 @@
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
 
-        // document.getElementById('submit').addEventListener('click', function() {
-        //   geocodeLatLng(geocoder, map, infowindow);
-        // });
+      
 
 
           geocodeLatLng(geocoder, map, infowindow);
