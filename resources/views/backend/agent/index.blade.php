@@ -53,7 +53,9 @@
                                      <th style="width:20%">Pre Balance</th>
                                      <th>Post Balance</th>
                                      <!-- <th>Amount</th> -->
+                                     <!-- <th>Amount</th> -->
                                      <th>Commission</th>
+                                     <th>Fee</th>
                                      <!-- <th>Status</th> -->
                                  </tr>
                             </thead>
@@ -140,7 +142,9 @@ $(function() {
             {data: 'mobile_no', name: 'mobile_no'},
             {data: 'pre_balance', name: 'pre_balance'},
             {data: 'post_balance', name: 'post_balance'},
+            // {data: 'amount', name: 'amount'},
             {data: 'commission', name: 'commission'},
+            {data: 'fee', name: 'fee'},
            
         ]
          
