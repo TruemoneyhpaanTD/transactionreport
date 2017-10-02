@@ -46,8 +46,10 @@ class AgentController extends Controller
                   
                     "transactionlog.transactionlog_datetime as transaction_date",
                     "activities.activities as description",
+                    "activities.service_type as type",
                     "transactionlog.mobile as mobile_no",
                     "transactionlog.fee_charges as fee",
+                    "transactionlog.transaction_status as status",
                     DB::raw('(case when transactionlog.pre_agent_card_balance is null then 0 else transactionlog.pre_agent_card_balance end) AS pre_balance'),
                     DB::raw('(case when transactionlog.agent_card_balance is null then 0 else transactionlog.agent_card_balance end) AS post_balance'),
                     DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end) AS amount'),
@@ -70,8 +72,10 @@ class AgentController extends Controller
             			->select([
             							"transactionlog.transactionlog_datetime as transaction_date",
                           "activities.activities as description",
+                          "activities.service_type as type",
             							"transactionlog.mobile as mobile_no",
             							"transactionlog.fee_charges as fee",
+                          "transactionlog.transaction_status as status",
                           DB::raw('(case when transactionlog.pre_master_agent_card_balance is null then 0 else transactionlog.pre_master_agent_card_balance end) As pre_balance'),
             							DB::raw('(case when transactionlog.master_agent_card_balance is null then 0 else transactionlog.master_agent_card_balance end) AS post_balance'),
             							DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end) AS amount'),
@@ -89,8 +93,10 @@ class AgentController extends Controller
                 ->select([
                       "member_transactionlog.transactionlog_datetime as transaction_date",
                       "member_transactionlog.activities_ref as description",
+                      "activities.service_type as type",
                       "member_transactionlog.mobile as mobile_no",
                       "member_transactionlog.fee_charges as fee",
+                      "member_transactionlog.transaction_status as status",
                       DB::raw('(case when member_transactionlog.pre_agent_card_balance is null then 0 else member_transactionlog.pre_agent_card_balance end) AS pre_balance'),
                       DB::raw('(case when member_transactionlog.post_agent_card_balance is null then 0 else member_transactionlog.post_agent_card_balance end) AS post_balance'),
                       DB::raw('(case when member_transactionlog.amount is null then 0 else member_transactionlog.amount end) As amount'),
@@ -102,10 +108,6 @@ class AgentController extends Controller
 
     		$member_transaction = $member_transaction->union($result)->union($transactionlog);
 
-
- 
-           
-            
 
             return Datatables::of($member_transaction)->make(true);
           }
@@ -126,6 +128,7 @@ class AgentController extends Controller
                       ->select([
                     "transactionlog.transactionlog_datetime as transaction_date",
                     "activities.activities as description",
+                    "activities.service_type as type",
                     "transactionlog.mobile as mobile_no",
                     
                     DB::raw('(case when transactionlog.pre_agent_card_balance is null then 0 else transactionlog.pre_agent_card_balance end) AS pre_balance'),
@@ -133,6 +136,7 @@ class AgentController extends Controller
                     DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end) AS amount'),
                     DB::raw('(case when agent_commission.commission is null then 0 else agent_commission.commission end) AS commission'),
                    "transactionlog.fee_charges as fee",
+                   "transactionlog.transaction_status as status",
 
               ]);
 
@@ -173,6 +177,7 @@ class AgentController extends Controller
                         ->select([
                           "transactionlog.transactionlog_datetime as transaction_date",
                           "activities.activities as description",
+                          "activities.service_type as type",
                           "transactionlog.mobile as mobile_no",
                          
                           DB::raw('(case when transactionlog.pre_master_agent_card_balance is null then 0 else transactionlog.pre_master_agent_card_balance end) As pre_balance'),
@@ -180,6 +185,7 @@ class AgentController extends Controller
                           DB::raw('(case when transactionlog.amount is null then 0 else transactionlog.amount end) AS amount'),
                           DB::raw('(case when acom.commission is null then 0 else acom.commission end) AS commission'),
                            "transactionlog.fee_charges as fee",
+                           "transactionlog.transaction_status as status",
                           ]);
 
                         
@@ -193,13 +199,15 @@ class AgentController extends Controller
                 ->select([
                       "member_transactionlog.transactionlog_datetime as transaction_date",
                       "member_transactionlog.activities_ref as description",
+                      "activities.service_type as type",
                       "member_transactionlog.mobile as mobile_no",
                       
                       DB::raw('(case when member_transactionlog.pre_agent_card_balance is null then 0 else member_transactionlog.pre_agent_card_balance end) AS pre_balance'),
                       DB::raw('(case when member_transactionlog.post_agent_card_balance is null then 0 else member_transactionlog.post_agent_card_balance end) AS post_balance'),
                       DB::raw('(case when member_transactionlog.amount is null then 0 else member_transactionlog.amount end) As amount'),
                       DB::raw('(case when agent_commission.commission is null then 0 else agent_commission.commission end) AS commission'),
-                  "member_transactionlog.fee_charges as fee",
+                      "member_transactionlog.fee_charges as fee",
+                      "member_transactionlog.transaction_status as status",
                   ]);
             
             $member_transaction->whereDate('member_transactionlog.transactionlog_datetime', '>=', "{$request->get('start')}");
