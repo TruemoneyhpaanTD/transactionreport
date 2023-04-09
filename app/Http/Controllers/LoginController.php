@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\User;
-use Illuminate\Support\Facades\Validator;
-use Input;
-use Session;
-use DB;
+use Illuminate\Support\Facades\Validato
 
 
 class LoginController extends Controller
